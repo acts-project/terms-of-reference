@@ -1,0 +1,262 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[british]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+
+% Section spacing tuned for a short policy-style document
+\titlespacing*{\section}{0pt}{1.4em}{0.6em}
+\titlespacing*{\subsection}{0pt}{1.0em}{0.4em}
+
+\setlist[itemize]{itemsep=0.2em, topsep=0.3em}
+
+\title{ACTS Contributor Policy \\ \large Contributorship, Authorship, and Citation}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\section*{Purpose}
+
+This document defines who counts as an ACTS contributor and how that determination
+is made. The contributor list serves two purposes: it is the public record of who
+has shaped the project, and it seeds the author list for ``on behalf of ACTS''
+publications and talks. The policy is intentionally light, leaving room for the
+collaborative judgement that has served the project well, while making the
+underlying mechanics legible to people inside and outside the project.
+
+The contributor list is maintained as a two-tier list: \emph{active} and
+\emph{inactive}. Active contributors seed the author list for new project releases,
+the pool from which CODEOWNERS are drawn, and the seed for ``on behalf of ACTS''
+author lists. Both active and inactive contributors are listed on the project's
+contributor page.
+
+\section*{Sufficient conditions for active contributor status}
+
+A person qualifies as an active contributor if they meet \emph{any one} of the
+following conditions within the past 12 months. The list is meant to be inclusive:
+meeting one condition is enough; meeting several does not confer additional status.
+The project assumes good faith and collaborative intent throughout --- these
+conditions describe the kinds of contribution that earn active status, not a
+checklist for adjudication.
+
+\begin{itemize}
+    \item \textbf{Code-based engagement.} Authored or substantively reviewed at
+          least two substantial pull requests on the project's code repositories.
+          Authorship and review are treated as fungible toward this threshold. A
+          pull request is ``substantial'' if it makes non-trivial changes to the
+          library itself, fundamental infrastructure or documentation. A review 
+          is substantive if it goes beyond a bare approval ---
+          comments, change requests, or threaded discussion all count. Self-reviews
+          do not count. Reviews on pull requests that did not merge still count.
+    \item \textbf{Project authorship.} Contributed substantively to an ACTS
+          publication --- writing, reviewing the manuscript, producing results or
+          figures, contributing the code or analysis the publication describes, or
+          similar work on the publication itself. Appearing on an author list by
+          virtue of contributor status, without doing work on the publication, does
+          not satisfy this condition.
+    \item \textbf{Supervision.} Supervised a student or postdoc whose work was
+          substantively on ACTS, where the supervisee is themselves a contributor
+          under one of the other conditions.
+    \item \textbf{Sustained personnel contribution.} Made it possible for one or
+          more individuals to spend significant amount of time substantially
+          working on ACTS development, integration, or maintenance. The
+          individuals doing the work qualify on their own merits via the
+          conditions above; this condition recognises the person who enabled the
+          sustained engagement.
+    \item \textbf{Sustained material contribution.} Provided computing
+          infrastructure, testing resources, hosting, event funding, or similar
+          in-kind contributions on which the project materially depended.
+\end{itemize}
+
+Giving a talk on behalf of ACTS is not by itself a sufficient condition for
+contributor status --- see the section on representing the project below. Holding
+the role of Project Contact or experiment liaison is likewise not a sufficient
+condition: PCs in practice qualify under the code-based or supervision conditions
+many times over, and liaisons represent their experiment to ACTS rather than
+contributing to ACTS itself, so the role is orthogonal to contributor status. As
+with talks, liaisons are often contributors via the other conditions; this is
+correlation, not consequence.
+
+\section*{Active and inactive}
+
+Active contributors are those who have met a sufficient condition within the past
+12 months. Inactive contributors are those who were once active but have not met a
+condition in the past 12 months. Movement between tiers is automatic and is not a
+judgement of the person; inactive status reflects current involvement, not the value
+of past contributions. Inactive contributors who become active again return to the
+active list at the next quarterly update.
+
+The active list seeds the author list for new project releases and the project's
+CODEOWNERS pool. CODEOWNERS membership is by self-selection: active contributors who
+agree to be code owners for specific paths are listed; nobody is added to CODEOWNERS
+without their consent.
+
+Both active and inactive contributors are listed on the project's contributor page,
+with their status clearly indicated. Past project releases preserve the author list
+as it was at the time of release, so contributions made during a person's active
+period remain permanently associated with them through the historical record.
+
+\section*{How contributors are recognised}
+
+The contributor list is updated by pull request, opened against the project's
+source-of-truth file. The Project Contact opens a regular update PR on a roughly
+quarterly cadence:
+
+\begin{itemize}
+    \item The PR is \textbf{seeded mechanically} from project history, drawing on
+          commit and review activity in the lookback window.
+    \item Conditions that are not visible in the project's code history --- project
+          authorship, supervision, sustained personnel contribution, sustained
+          material contribution --- are reflected through either
+          \textbf{self-nomination} or manual addition by the PC. Anyone who
+          believes they meet such a condition can be added in two equivalent
+          ways:
+          \begin{itemize}
+              \item Asking the PC to include them in the next quarterly PR, with a
+                    brief description of the contribution. Nominations on someone
+                    else's behalf are welcome, including from the experiment liaison
+                    group.
+              \item Opening a PR themselves against the source-of-truth file, with
+                    the brief description of the contribution in the PR body.
+          \end{itemize}
+    \item The PR is \textbf{announced at the weekly developer meeting} when
+          opened, and circulated on the project's mailing list and main Mattermost
+          channel.
+    \item The PR remains open for \textbf{one week} for objections, comments, and
+          additions. Silence is consent.
+    \item After the objection window closes, the PR is merged.
+\end{itemize}
+
+Three of the four quarterly updates handle additions: contributors who newly meet
+a sufficient condition are added. The fourth quarterly update, scheduled to align
+with the annual workshop, additionally handles the active-to-inactive transition
+for contributors who have not met a sufficient condition in the past 12 months.
+
+Contributors can be added at any time during a quarter; the quarterly cadence is
+the default rhythm, not a constraint. Self-nomination PRs and other interim updates
+are merged outside the quarterly schedule when ready. If a publication or talk is
+being prepared and the active list needs updating ahead of the next quarterly PR,
+the PC can also open an interim PR.
+
+The project assumes good faith. In practice, mechanical seeding plus self-nomination
+is expected to produce a list that the community recognises as accurate without
+further intervention. If a concern is raised --- typically through the objection
+window on a PR --- the PC facilitates a brief discussion to address it. Concerns
+are expected to be rare; the document does not prescribe a formal adjudication
+process because none has been needed.
+
+\section*{Representing the project}
+
+The project does not maintain a process for approving who may present on behalf of
+ACTS, and contributor status is not a hard requirement for doing so. In practice
+this question rarely creates difficulty, and the project prefers not to formalise
+what has not been a problem.
+
+The expectation is that anyone intending to give a talk, write a proceedings, or
+otherwise represent ACTS publicly \textbf{circulates the intent} in advance ---
+typically at the developer meeting, via the mailing list or Mattermost or
+directly to the PC. There is no explicit approval step. If concerns are raised
+about the planned representation, they can be voiced to the PC, who facilitates
+a consensus discussion in the usual way. In the great majority of cases,
+circulation is a courtesy that lets the project know what is happening and gives
+others the opportunity to coordinate or contribute material.
+
+Giving a talk on behalf of ACTS does not by itself confer contributor status, just
+as contributor status is not required to give such a talk. The two are deliberately
+decoupled.
+
+\section*{Authorship for ``on behalf of ACTS'' publications and talks}
+
+The active contributor list, at the time a publication or talk is being prepared,
+seeds the author list for work presented on behalf of ACTS. The project does not
+formalise what makes a publication or talk ``on behalf of ACTS'' --- that
+determination is made collaboratively in the same way the project handles other
+questions.
+
+People who become active during preparation can be added through the normal
+mechanism; people who transition to inactive during preparation remain on the
+author list because they were active when the work happened. Individuals listed as
+active may decline authorship on any specific publication.
+
+Active contributor status is the seed for the author list, not a strict membership
+rule. People who are not on the active list may be appropriate co-authors for a
+specific publication, and people on the active list may decline. The active list
+provides a starting point that captures the community at the time of writing
+without being treated as exclusive.
+
+\section*{Citing ACTS}
+
+The recommended citation depends on what your collaboration's policies allow:
+
+\begin{itemize}
+    \item \textbf{Preferred:} The 2021 paper [Ai et al., \texttt{arXiv:2106.13593}]
+          together with the Zenodo DOI for the specific version of ACTS used in the
+          work. This combines the canonical peer-reviewed reference with a
+          reproducible, historically accurate snapshot of who was active when the
+          cited version was released. The version-specific DOI is available from
+          the project's Zenodo record at
+          \href{https://doi.org/10.5281/zenodo.5141418}{\texttt{doi.org/10.5281/zenodo.5141418}}
+          --- follow the link to the relevant release.
+    \item \textbf{Alternative}, where peer-reviewed citation is not required: the
+          Zenodo DOI for the specific version used, together with the Zenodo
+          concept DOI (\texttt{10.5281/zenodo.5141418}).
+    \item \textbf{If your collaboration's policies do not permit citing software
+          DOIs:} the 2021 paper alone.
+\end{itemize}
+
+Citing only the concept DOI is discouraged: the concept DOI resolves to the latest
+release, so the author list it points to changes over time, which obscures who
+actually contributed to the version used.
+
+A suggested acknowledgement phrasing, where a full citation is not appropriate (for
+example in theses):
+
+\begin{quote}
+\itshape
+This work made use of A Common Tracking Software (ACTS) version vXX.Y.Z [Ai et al.,
+\texttt{2106.13593}; Zenodo: \texttt{10.5281/zenodo.NNNNNNNN}]. We thank the ACTS
+developers for their continued support of the toolkit.
+\end{quote}
+
+The project will also maintain a public list of papers that have used ACTS,
+populated by self-report from authors. This gives contributors a visible record of
+the project's impact.
+
+\section*{Bookkeeping}
+
+The project maintains its citation and contributor metadata in a single
+source-of-truth file in the main code repository, from which downstream artefacts
+are generated automatically. The relevant artefacts are:
+
+\begin{itemize}
+    \item The \textbf{Zenodo metadata} used for new releases, which lists active
+          contributors as authors. Past releases preserve the author list as it was
+          at the time of release.
+    \item The \textbf{AUTHORS file} in the repository, which lists all contributors
+          grouped by active and inactive status.
+    \item The \textbf{CODEOWNERS configuration}, which is drawn from active
+          contributors who have opted in to specific paths.
+\end{itemize}
+
+Updates to the source-of-truth file flow through the standard pull request
+mechanism described above. Generated files are kept in sync automatically, so
+contributors normally do not need to edit them directly. The exact technical
+arrangement of source-of-truth file and synchronisation tooling is an
+implementation matter and is documented separately in the repository.
+
+\section*{Review}
+
+This policy will be reviewed annually, alongside the PC and ELG terms of reference,
+and adjusted as practice settles. The thresholds and exclusion list in particular
+are expected to evolve based on experience.
+
+\end{document}
