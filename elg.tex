@@ -1,0 +1,98 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue!60!black,
+    pdftitle={ACTS Experiment Liaison Group --- Terms of Reference},
+    pdfauthor={ACTS Project}
+}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1.2em}{0.4em}
+
+\setlist[itemize]{leftmargin=1.5em,itemsep=0.2em,topsep=0.3em}
+
+\title{ACTS Experiment Liaison Group\\ \large Terms of Reference}
+\date{}
+\author{}
+
+\begin{document}
+\maketitle
+\vspace{-3em}
+
+\section*{Purpose}
+
+The Experiment Liaison Group (ELG) is the standing channel between developers of ACTS and the experiments that depend on the project for charged particle track reconstruction. It exists to:
+
+\begin{itemize}
+    \item Carry information in both directions: experiment needs, planned developments, and known issues.
+    \item Surface and discuss roadmap priorities where the interests of multiple experiments overlap or conflict, without requiring the group to resolve them.
+    \item Allow the experiments to be informed of, and comment on, major technical decisions --- in particular large architectural shifts and significant rewrites of subsystems that experiments depend on.
+\end{itemize}
+
+The ELG is explicitly not an advisory board and holds no decision-making authority. Authority over the codebase remains with the maintainers; decisions internal to any experiment remain with that experiment. The group operates on the assumption of collaborative intent among all participants, and its purpose is to provide a forum, not arbitration.
+
+Changes to supported platforms, compilers, or major dependencies are communicated to the ELG as an explicit point, though they do not require ELG approval. API consistency is maintained on a best-effort basis only and is not itself a matter for ELG sign-off. The release schedule is set by the project and is intentionally flexible.
+
+\section*{Membership}
+
+Each experiment using the project --- or actively evaluating adoption --- may nominate one liaison, with an optional deputy for continuity. The nomination is the experiment's decision and the project imposes no formal requirements on who is chosen. ``Actively evaluating adoption'' is interpreted broadly: it does not require a commitment to full adoption across an experiment's reconstruction workflow, and covers cases where the project is being considered to support a specific task or sub-workflow.
+
+Participation is open by design: Experiments may self-nominate a liaison, and the project leader may also reach out to experiments known to be evaluating the project to solicit a nomination.
+
+The ELG is chaired by the project leader, whose role is defined separately.
+
+The list of liaisons is maintained publicly in the project repository.
+
+\section*{Scope}
+
+\textbf{In scope:}
+
+\begin{itemize}
+    \item Surfacing experiment requirements, pain points, and upcoming needs.
+    \item Being informed of and commenting on major proposed changes.
+    \item Surfacing cases where developer effort affects multiple experiments.
+    \item Flagging cross-experiment opportunities (shared tooling, common workflows, joint validation).
+\end{itemize}
+
+\textbf{Out of scope:}
+
+\begin{itemize}
+    \item Day-to-day code review and issue triage, which continue through the normal repository workflow.
+    \item Decisions internal to any one experiment.
+    \item Authorship, citation, or governance of the project itself, which are handled separately.
+\end{itemize}
+
+\section*{Meetings}
+
+The ELG meets quarterly by video conference. When an annual workshop takes place, an ELG session is held alongside it in hybrid format and serves as the in-person counterpart to the quarterly meetings. Additional meetings can be called by the chair when a significant technical decision needs to be communicated. All meetings are announced on the ELG mailing list.
+
+A standing agenda includes:
+
+\begin{itemize}
+    \item A project update from the project leader or a delegate, covering releases since the last meeting and major ongoing developments.
+    \item A short update from each experiment liaison. Slides are welcome but not required; a brief verbal statement is sufficient. A loose suggested structure is: current ACTS version in use, upgrade plans, pain points, and upcoming needs. Liaisons share what is useful and skip anything that touches experiment internals --- there is no compulsory disclosure.
+\end{itemize}
+
+Minutes are taken by the project leader or a delegate and circulated to the wider community via the project mailing list and Mattermost channel, which also serve as the between-meeting channels for announcements and asynchronous discussion.
+
+The project itself is fully open; ELG discussions of unreleased plans may be shared freely outside the ELG.
+
+The quarterly ELG meetings are complemented by the weekly ACTS developers meeting, which is open to all and where most ongoing technical discussion happens. Liaisons are encouraged to attend when they can; doing so keeps the ELG channel light by handling routine matters in their natural place.
+
+\section*{Review}
+
+These terms of reference are intentionally light, in keeping with the project's preference for small, reversible steps over heavy formalisation. They will be reviewed at least annually by the ELG and adjusted as the working practice of the group settles.
+
+\end{document}
