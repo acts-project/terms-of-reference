@@ -1,5 +1,8 @@
 \documentclass[11pt,a4paper]{article}
 
+\usepackage{lineno}
+\linenumbers
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -33,17 +36,17 @@
 
 \section*{Purpose}
 
-The Experiment Liaison Group (ELG) is the standing channel between developers of ACTS and the experiments that depend on the project for charged particle track reconstruction. It exists to:
+The Experiment Liaison Group (ELG) is the standing channel connecting the developers of ACTS with the experiments that use and depend on the toolkit. It exists to:
 
 \begin{itemize}
-    \item Carry information in both directions: experiment needs, planned developments, and known issues.
+    \item Carry information in both directions: experiment needs, planned ACTS developments, and known issues.
     \item Surface and discuss roadmap priorities where the interests of multiple experiments overlap or conflict, without requiring the group to resolve them.
     \item Allow the experiments to be informed of, and comment on, major technical decisions --- in particular large architectural shifts and significant rewrites of subsystems that experiments depend on.
 \end{itemize}
 
-The ELG is explicitly not an advisory board and holds no decision-making authority. Authority over the codebase remains with the maintainers; decisions internal to any experiment remain with that experiment. The group operates on the assumption of collaborative intent among all participants, and its purpose is to provide a forum, not arbitration.
+The ELG holds no decision-making authority, the authority over the codebase remains with the maintainers; decisions internal to any experiment remain with that experiment. The group operates on the assumption of collaborative intent among all participants, and its purpose is to provide a forum, not arbitration.
 
-Changes to supported platforms, compilers, or major dependencies are communicated to the ELG as an explicit point, though they do not require ELG approval. API consistency is maintained on a best-effort basis only and is not itself a matter for ELG sign-off. The release schedule is set by the project and is intentionally flexible.
+Changes to supported platforms, compilers, or major dependencies are communicated to the ELG as an explicit point, though they do not require ELG approval. API consistency is maintained on a best-effort basis only and is not itself a matter for ELG sign-off. The release schedule is set by the project and is intentionally flexible. Dedicated release scheduling and maintenance considerations, e.g.~for experiments during data taking which will require long-term release support, should be brought up in the joint ELG-ACTS (or direct communication), and a support schedule involving both, the ACTS and experiment developers can be defined.
 
 \section*{Membership}
 
@@ -76,12 +79,12 @@ The list of liaisons is maintained publicly in the project repository.
 
 \section*{Meetings}
 
-The ELG meets quarterly by video conference. When an annual workshop takes place, an ELG session is held alongside it in hybrid format and serves as the in-person counterpart to the quarterly meetings. Additional meetings can be called by the chair when a significant technical decision needs to be communicated. All meetings are announced on the ELG mailing list.
+The ELG meets quarterly by video conference. When an annual ACTS developers workshop takes place, an ELG session is held alongside it in hybrid format and serves as the in-person counterpart to the quarterly meetings. Additional meetings can be called by the chair when a significant technical decision needs to be communicated. All meetings are announced on the ELG mailing list.
 
 A standing agenda includes:
 
 \begin{itemize}
-    \item A project update from the project leader or a delegate, covering releases since the last meeting and major ongoing developments.
+    \item A project update from the Project Contact or a delegate, covering releases since the last meeting and major ongoing developments.
     \item A short update from each experiment liaison. Slides are welcome but not required; a brief verbal statement is sufficient. A loose suggested structure is: current ACTS version in use, upgrade plans, pain points, and upcoming needs. Liaisons share what is useful and skip anything that touches experiment internals --- there is no compulsory disclosure.
 \end{itemize}
 
