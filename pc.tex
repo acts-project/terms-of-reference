@@ -1,8 +1,5 @@
 \documentclass[11pt,a4paper]{article}
 
-\usepackage{lineno}
-\linenumbers
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[british]{babel}
@@ -12,10 +9,6 @@
 \usepackage{titlesec}
 \usepackage[hidelinks]{hyperref}
 
-\usepackage{draftwatermark}
-\SetWatermarkText{DRAFT}
-\SetWatermarkScale{1}
-
 % Section spacing tuned for a short terms-of-reference style document
 \titlespacing*{\section}{0pt}{1.4em}{0.6em}
 \titlespacing*{\subsection}{0pt}{1.0em}{0.4em}
@@ -24,7 +17,10 @@
 
 \title{ACTS Project Contact \\ \large Terms of Reference}
 \author{}
-\date{\today\\v0.1}
+\date{\docstamp}
+
+% Document status and revision stamp; see actsdoc.sty.
+\usepackage[status=draft, version=0.1, name={ACTS Project Contact}]{actsdoc}
 
 \begin{document}
 

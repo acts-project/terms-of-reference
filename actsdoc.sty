@@ -1,0 +1,83 @@
+%% actsdoc.sty -- status and revision stamping for ACTS policy documents.
+%%
+%% Usage, in the preamble of a standalone document:
+%%
+%%     \usepackage[status=draft, version=0.3, name={ACTS Project Contact}]{actsdoc}
+%%
+%%   status   draft | final
+%%            draft adds the DRAFT watermark and line numbers, and is never
+%%            released. final requires a version and is released by CI.
+%%   version  the document version, e.g. 0.3 or 1.0. Bumping it on a final
+%%            document is what causes CI to cut a release.
+%%   name     human readable document name, used for the release title.
+%%
+%% The document should then use \date{\docstamp} to print the stamp.
+%%
+%% Two files are involved, neither of which is committed:
+%%   version.tex      written by scripts/gitversion.sh; defines \gitrev/\gitdate.
+%%                    Absent (e.g. on Overleaf), sensible fallbacks are used.
+%%   \jobname.docmeta written during compilation; read by CI to decide releases.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{actsdoc}[2026/09/03 v1.0 ACTS document status and revision stamping]
+
+\RequirePackage{kvoptions}
+\RequirePackage{etoolbox}
+
+\SetupKeyvalOptions{family=actsdoc, prefix=actsdoc@}
+\DeclareStringOption[draft]{status}
+\DeclareStringOption[]{version}
+\DeclareStringOption[]{name}
+\ProcessKeyvalOptions*
+
+\newif\ifactsdoc@draft
+\ifdefstring{\actsdoc@status}{draft}{\actsdoc@drafttrue}{%
+  \ifdefstring{\actsdoc@status}{final}{\actsdoc@draftfalse}{%
+    \PackageError{actsdoc}{Unknown status `\actsdoc@status'}%
+      {The status option must be either draft or final.}}}
+
+\ifactsdoc@draft\else
+  \ifdefempty{\actsdoc@version}{%
+    \PackageError{actsdoc}{status=final requires a version}%
+      {Add version=<number> to the actsdoc package options.}}{}
+\fi
+
+%% Draft furniture: watermark and line numbers, for circulating for comment.
+\ifactsdoc@draft
+  \RequirePackage{draftwatermark}
+  \SetWatermarkText{DRAFT}
+  \SetWatermarkScale{1}
+  \RequirePackage{lineno}
+  \AtBeginDocument{\linenumbers}
+\fi
+
+%% Git revision, injected by scripts/gitversion.sh.
+\providecommand{\gitrev}{uncommitted}
+\providecommand{\gitdate}{\today}
+\InputIfFileExists{version.tex}{}{}
+
+%% The stamp printed under the title.
+\newcommand{\docstamp}{%
+  \ifactsdoc@draft
+    DRAFT\ifdefempty{\actsdoc@version}{}{\space v\actsdoc@version}%
+    \\[0.2em]{\small\gitdate\quad\texttt{\gitrev}}%
+  \else
+    Version \actsdoc@version\\[0.2em]{\small\gitdate}%
+  \fi}
+
+%% Same information in the PDF metadata, if hyperref is loaded.
+\AtBeginDocument{%
+  \@ifundefined{hypersetup}{}{%
+    \hypersetup{pdfsubject={%
+      \ifactsdoc@draft DRAFT\else Version \actsdoc@version\fi\space(\gitrev)}}}}
+
+%% Machine readable sidecar so CI does not have to parse the .tex source.
+\newwrite\actsdoc@metafile
+\AtBeginDocument{%
+  \immediate\openout\actsdoc@metafile=\jobname.docmeta\relax
+  \immediate\write\actsdoc@metafile{status=\actsdoc@status}%
+  \immediate\write\actsdoc@metafile{version=\actsdoc@version}%
+  \immediate\write\actsdoc@metafile{name=\actsdoc@name}%
+  \immediate\closeout\actsdoc@metafile}
+
+\endinput

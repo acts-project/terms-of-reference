@@ -1,0 +1,114 @@
+name: Build documents
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  # Never cancel a run on the default branch: it may be mid-release.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Every top-level .tex file with a \documentclass is a standalone document.
+      - name: Discover documents
+        id: find
+        run: |
+          documents=$(grep -l '^\s*\\documentclass' ./*.tex | sed 's|^\./||' | sort)
+          echo "$documents"
+          {
+            echo "documents<<EOF"
+            echo "$documents"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Generate version stamp
+        run: ./scripts/gitversion.sh version.tex
+
+      # Compiled sequentially in a single TeX Live container.
+      - name: Compile
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: ${{ steps.find.outputs.documents }}
+
+      - name: Summarise document status
+        run: |
+          for meta in *.docmeta; do
+            echo "- \`${meta%.docmeta}\`: $(sed -n 's/^status=//p' "$meta") \
+              v$(sed -n 's/^version=//p' "$meta")" >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pdfs
+          # .docmeta carries the status/version each document declared, so the
+          # release job does not have to parse LaTeX source.
+          path: |
+            *.pdf
+            *.docmeta
+          if-no-files-found: error
+
+  release:
+    name: Release
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: pdfs
+          path: pdfs
+
+      # A document is released when it declares status=final and no release
+      # exists yet for its declared version. Bumping the version in the .tex is
+      # therefore the whole release procedure; drafts are never released.
+      - name: Release finalised documents
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd pdfs
+          released=0
+          for meta in *.docmeta; do
+            doc="${meta%.docmeta}"
+            docstatus=$(sed -n 's/^status=//p' "$meta")
+            version=$(sed -n 's/^version=//p' "$meta")
+            name=$(sed -n 's/^name=//p' "$meta")
+            [ -n "$name" ] || name="$doc"
+
+            if [ "$docstatus" != "final" ]; then
+              echo "skip $doc: status=$docstatus"
+              continue
+            fi
+
+            tag="$doc-v$version"
+            if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+              echo "skip $doc: $tag already released"
+              continue
+            fi
+
+            cp "$doc.pdf" "$tag.pdf"
+            gh release create "$tag" \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "$name v$version" \
+              --generate-notes \
+              "$tag.pdf"
+            echo "released $tag" >> "$GITHUB_STEP_SUMMARY"
+            released=$((released + 1))
+          done
+          echo "$released document(s) released"

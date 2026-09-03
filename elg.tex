@@ -1,8 +1,5 @@
 \documentclass[11pt,a4paper]{article}
 
-\usepackage{lineno}
-\linenumbers
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -12,10 +9,6 @@
 \usepackage{parskip}
 \usepackage{titlesec}
 \usepackage{hyperref}
-
-\usepackage{draftwatermark}
-\SetWatermarkText{DRAFT}
-\SetWatermarkScale{1}
 
 \hypersetup{
     colorlinks=true,
@@ -31,8 +24,11 @@
 \setlist[itemize]{leftmargin=1.5em,itemsep=0.2em,topsep=0.3em}
 
 \title{ACTS Experiment Liaison Group\\ \large Terms of Reference}
-\date{\today\\v0.1}
+\date{\docstamp}
 \author{}
+
+% Document status and revision stamp; see actsdoc.sty.
+\usepackage[status=draft, version=0.1, name={ACTS Experiment Liaison Group}]{actsdoc}
 
 \begin{document}
 \maketitle
