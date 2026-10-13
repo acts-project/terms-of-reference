@@ -1,0 +1,4 @@
+{
+  // Match .latexmkrc: build products go to build/<document>/.
+  "latex-workshop.latex.outDir": "%DIR%/build/%DOCFILE%"
+}

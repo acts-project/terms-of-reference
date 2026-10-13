@@ -28,7 +28,7 @@
 \author{}
 
 % Document status and revision stamp; see actsdoc.sty.
-\usepackage[status=final, version=1.0, name={ACTS Experiment Liaison Group}]{actsdoc}
+\usepackage[status=final, version=1.1, name={ACTS Experiment Liaison Group}]{actsdoc}
 
 \begin{document}
 \maketitle
@@ -44,13 +44,15 @@ The Experiment Liaison Group (ELG) is the standing channel connecting the develo
     \item Allow the experiments to be informed of, and comment on, major technical decisions --- in particular large architectural shifts and significant rewrites of subsystems that experiments depend on.
 \end{itemize}
 
-The ELG holds no decision-making authority, the authority over the codebase remains with the maintainers; decisions internal to any experiment remain with that experiment. The group operates on the assumption of collaborative intent among all participants, and its purpose is to provide a forum, not arbitration.
+The ELG holds no decision-making authority: authority over the codebase remains with the maintainers, and decisions internal to any experiment remain with that experiment. The group operates on the assumption of collaborative intent among all participants, and its purpose is to provide a forum, not arbitration.
 
-Changes to supported platforms, compilers, or major dependencies are communicated to the ELG as an explicit point, though they do not require ELG approval. API consistency is maintained on a best-effort basis only and is not itself a matter for ELG sign-off. The release schedule is set by the project and is intentionally flexible. Dedicated release scheduling and maintenance considerations, e.g.~for experiments during data taking which will require long-term release support, should be brought up in the joint ELG-ACTS (or direct communication), and a support schedule involving both, the ACTS and experiment developers can be defined.
+Changes to supported platforms, compilers, or major dependencies are communicated to the ELG as an explicit point, though they do not require ELG approval. API consistency is maintained on a best-effort basis only and is not itself a matter for ELG sign-off. The release schedule is set by the project and is intentionally flexible. Dedicated release scheduling and maintenance considerations, e.g.~for experiments during data taking which will require long-term release support, should be brought up in the joint ELG meetings (or through direct communication), and a support schedule involving both the ACTS and experiment developers can be defined.
 
 \section*{Membership}
 
 Each experiment using the project --- or actively evaluating adoption --- may nominate one liaison, with an optional deputy for continuity. The nomination is the experiment's decision and the project imposes no formal requirements on who is chosen. ``Actively evaluating adoption'' is interpreted broadly: it does not require a commitment to full adoption across an experiment's reconstruction workflow, and covers cases where the project is being considered to support a specific task or sub-workflow.
+
+An experiment liaison communicates the experiment's requirements, plans, and preferences, but does not, by virtue of the liaison role, have authority to commit the experiment, its resources, schedules, or adoption decisions. Likewise, statements made in the ELG by project members about planned developments are indicative and do not bind the project beyond its normal decision-making process. Invited experts (see Meetings) do not hold a liaison role.
 
 Participation is open by design: Experiments may self-nominate a liaison, and the project leader may also reach out to experiments known to be evaluating the project to solicit a nomination.
 
@@ -88,9 +90,13 @@ A standing agenda includes:
     \item A short update from each experiment liaison. Slides are welcome but not required; a brief verbal statement is sufficient. A loose suggested structure is: current ACTS version in use, upgrade plans, pain points, and upcoming needs. Liaisons share what is useful and skip anything that touches experiment internals --- there is no compulsory disclosure.
 \end{itemize}
 
+Liaisons may invite additional members of their experiment with relevant expertise to attend an ELG meeting, or specific agenda items, when this helps information reach the appropriate people. This is particularly useful for larger collaborations organised across several working groups. The liaison (or deputy) remains the experiment's main point of contact.
+
 Minutes are taken by the project leader or a delegate and circulated to the wider community via the project mailing list and Mattermost channel, which also serve as the between-meeting channels for announcements and asynchronous discussion.
 
-The project itself is fully open; ELG discussions of unreleased plans may be shared freely outside the ELG.
+The project itself is fully open, and ELG meetings are open by default: anything presented or discussed may be shared freely outside the ELG and is reflected in the public minutes.
+
+Where a discussion requires reference to experiment plans or constraints that are not intended for unrestricted circulation, a liaison can ask for it to be held in a closed session at the end of the meeting. Closed sessions are confidential: their content is not included in the minutes, and any material shown is not made public.
 
 The quarterly ELG meetings are complemented by the weekly ACTS developers meeting, which is open to all and where most ongoing technical discussion happens. Liaisons are encouraged to attend when they can; doing so keeps the ELG channel light by handling routine matters in their natural place.
 

@@ -38,7 +38,8 @@ jobs:
       - name: Generate version stamp
         run: ./scripts/gitversion.sh version.tex
 
-      # Compiled sequentially in a single TeX Live container.
+      # Compiled sequentially in a single TeX Live container; .latexmkrc puts
+      # each document's output in build/<document>/.
       - name: Compile
         uses: xu-cheng/latex-action@v3
         with:
@@ -46,8 +47,9 @@ jobs:
 
       - name: Summarise document status
         run: |
-          for meta in *.docmeta; do
-            echo "- \`${meta%.docmeta}\`: $(sed -n 's/^status=//p' "$meta") \
+          for meta in build/*/*.docmeta; do
+            doc=$(basename "$meta" .docmeta)
+            echo "- \`$doc\`: $(sed -n 's/^status=//p' "$meta") \
               v$(sed -n 's/^version=//p' "$meta")" >> "$GITHUB_STEP_SUMMARY"
           done
 
@@ -57,8 +59,8 @@ jobs:
           # .docmeta carries the status/version each document declared, so the
           # release job does not have to parse LaTeX source.
           path: |
-            *.pdf
-            *.docmeta
+            build/*/*.pdf
+            build/*/*.docmeta
           if-no-files-found: error
 
   release:
@@ -83,8 +85,8 @@ jobs:
         run: |
           cd pdfs
           released=0
-          for meta in *.docmeta; do
-            doc="${meta%.docmeta}"
+          for meta in */*.docmeta; do
+            doc=$(basename "$meta" .docmeta)
             docstatus=$(sed -n 's/^status=//p' "$meta")
             version=$(sed -n 's/^version=//p' "$meta")
             name=$(sed -n 's/^name=//p' "$meta")
@@ -101,7 +103,7 @@ jobs:
               continue
             fi
 
-            cp "$doc.pdf" "$tag.pdf"
+            cp "$doc/$doc.pdf" "$tag.pdf"
             gh release create "$tag" \
               --repo "$GITHUB_REPOSITORY" \
               --target "$GITHUB_SHA" \

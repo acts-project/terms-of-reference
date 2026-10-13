@@ -46,5 +46,8 @@ $ ./scripts/gitversion.sh    # optional; stamps the current revision
 $ latexmk -pdf pc.tex
 ```
 
+Build products for each document go to `build/<document>/`, e.g. `build/pc/pc.pdf`
+(configured in `.latexmkrc`).
+
 Without `version.tex` — on Overleaf, for instance — the revision falls back to
 `uncommitted` and today's date. Nothing else changes.
